@@ -27,20 +27,20 @@ int main() {
 		cout << get<0>(tp1) << endl; // 9
 	}
 
-	cout << "std::make_tuple : tuple 간단하게 정의하기" << endl;
+	cout << "tuple 간단하게 정의하기 : std::make_tuple" << endl;
 	{
 		tuple<int, char> tp = make_tuple(10, 't');
 		cout << get<0>(tp) << endl; // 10
 		cout << get<1>(tp) << endl; // t
 	}
 
-	cout << "std::tuple_size : tuple 데이터 개수" << endl;
+	cout << "tuple 데이터 개수 : std::tuple_size" << endl;
 	{
 		tuple<int, char> tp = make_tuple(10, 't');
 		cout << tuple_size<decltype(tp)>::value << endl; // 2
 	}
 
-	cout << "std::tie : 참조 데이터를 저장하는 tuple" << endl;
+	cout << "참조 데이터를 저장하는 tuple : std::tie" << endl;
 	{
 		int intValue = 20;
 		tuple<int&> rtp = tie(intValue); // tie 대신 tuple<int&>(intValue); 가능
@@ -49,7 +49,7 @@ int main() {
 		cout << intValue << endl;
 	}
 
-	cout << "std::tie : tuple의 데이터를 일괄적으로 변수에 저장" << endl;
+	cout << "tuple의 데이터를 일괄적으로 변수에 저장 : std::tie" << endl;
 	{
 		tuple<int, double> tp = make_tuple(1, 2.2);
 		int value1;
@@ -60,7 +60,7 @@ int main() {
 		cout << value2 << endl; // 2.2
 	}
 
-	cout << "std::tie, std::ignore : tuple의 데이터를 부분적으로 변수에 저장" << endl;
+	cout << "tuple의 데이터를 부분적으로 변수에 저장 : std::tie, std::ignore" << endl;
 	{
 		tuple<int, double, char> tp = make_tuple(1, 1.1, 'c');
 		int value1;
@@ -72,7 +72,7 @@ int main() {
 	}
 
 
-	cout << "std::tuple_cat : tuple 합치기" << endl;
+	cout << "tuple 합치기 : std::tuple_cat" << endl;
 	{
 		tuple<int> tp1 = make_tuple(1);
 		tuple<double> tp2 = make_tuple(2.2);
@@ -85,6 +85,7 @@ int main() {
 		cout << get<0>(tp_cat) << endl; // 1
 		cout << get<1>(tp_cat) << endl; // 2.2
 	}
+
 
 	return 0;
 }
