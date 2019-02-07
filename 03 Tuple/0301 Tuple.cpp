@@ -86,6 +86,5 @@ int main() {
 		cout << get<1>(tp_cat) << endl; // 2.2
 	}
 
-
 	return 0;
 }
