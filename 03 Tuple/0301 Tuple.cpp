@@ -1,55 +1,56 @@
-#include <tuple> // tupleÀ» »ç¿ëÇÏ±â À§ÇØ ÇÊ¿ä
+ï»¿#include <tuple> // tuple ì‚¬ìš©
 #include <iostream>
 
 using namespace std;
 
 int main() {
 	/* tuple?
-	Å¬·¡½º, ±¸Á¶Ã¼¸¦ ¸¸µéÁö ¾Ê°í µ¥ÀÌÅÍ¸¦ ÇÏ³ªÀÇ °´Ã¼·Î ¹­¾îÁÜ.
-	Cpp11 ÀÌÀü¿¡´Â std::pair¸¦ »ç¿ë.
-	tuple¿¡ ÀúÀåÇÒ ¼ö ÀÖ´Â µ¥ÀÌÅÍ °³¼ö´Â Visual Studio 2012 ÀÌÇÏ ¹öÀü¿¡¼­ _VARIADIC_MAX·Î Á¤ÀÇµÈ 10°³±îÁöÀÌ´Ù.
+	í´ë˜ìŠ¤, êµ¬ì¡°ì²´ë¥¼ ë§Œë“¤ì§€ ì•Šê³  ë°ì´í„°ë¥¼ í•˜ë‚˜ì˜ ê°ì²´ë¡œ ë¬¶ì–´ì¤Œ.
+	C++98ì—ì„œ ì œê³µí•˜ë˜ std::pairì˜ í™•ì¥ ë²„ì „.
+	ì»´íŒŒì¼ ì‹œê°„ì— ëª…ì‹œë˜ê±°ë‚˜ ì¶”ë¡ ë  ìˆ˜ ìˆëŠ” ë°ì´í„°í˜• ìš”ì†Œë“¤ì„ ê°€ì§€ëŠ” ì´ì¢… ëª©ë¡(heterogeneous list).
+	tupleì— ì €ì¥í•  ìˆ˜ ìˆëŠ” ë°ì´í„° ê°œìˆ˜ëŠ” Visual Studio 2012 ì´í•˜ ë²„ì „ì—ì„œ _VARIADIC_MAXë¡œ ì •ì˜ëœ 10ê°œê¹Œì§€ì´ë‹¤.
 	*/
 
-	cout << "tuple Á¤ÀÇ" << endl;
+	cout << "tuple ì •ì˜" << endl;
 	{
-		// std::tuple : tuple »ı¼º
-		tuple<int, char> tp1 = tuple<int, char>(1, 'c'); // »ı¼º ÈÄ ÃÊ±âÈ­ °¡´É
+		// std::tuple : tuple ìƒì„±
+		tuple<int, char> tp1 = tuple<int, char>(1, 'c'); // ìƒì„± í›„ ì´ˆê¸°í™” ê°€ëŠ¥
 
-		// º¯¼öÅ¸ÀÔ, ½ÇÁ¦°´Ã¼, °ªÀÌ ´Ù¸£¸é ¿¡·¯´ë½Å °æ°í°¡ ³­´Ù.
-		//tuple<int, char> tp = tuple<int, double, int>(1.1, 1); // °æ°í	C4244	'ÃÊ±âÈ­ Áß': '_Ty'¿¡¼­ '_Ty'(À¸)·Î º¯È¯ÇÏ¸é¼­ µ¥ÀÌÅÍ°¡ ¼Õ½ÇµÉ ¼ö ÀÖ½À´Ï´Ù.
+		// ë³€ìˆ˜íƒ€ì…, ì‹¤ì œê°ì²´, ê°’ì´ ë‹¤ë¥´ë©´ ì—ëŸ¬ëŒ€ì‹  ê²½ê³ ê°€ ë‚œë‹¤.
+		//tuple<int, char> tp = tuple<int, double, int>(1.1, 1); // ê²½ê³ 	C4244	'ì´ˆê¸°í™” ì¤‘': '_Ty'ì—ì„œ '_Ty'(ìœ¼)ë¡œ ë³€í™˜í•˜ë©´ì„œ ë°ì´í„°ê°€ ì†ì‹¤ë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 
-		// std::get : tuple °ª °¡Á®¿À±â
+		// std::get : tuple ê°’ ê°€ì ¸ì˜¤ê¸°
 		cout << get<0>(tp1) << endl; // 1
 		cout << get<1>(tp1) << endl; // 2.2
 
-		// std::get : tuple °ª ÀúÀåÇÏ±â
+		// std::get : tuple ê°’ ì €ì¥í•˜ê¸°
 		get<0>(tp1) = 9;
 		cout << get<0>(tp1) << endl; // 9
 	}
 
-	cout << "tuple °£´ÜÇÏ°Ô Á¤ÀÇÇÏ±â : std::make_tuple" << endl;
+	cout << "tuple ê°„ë‹¨í•˜ê²Œ ì •ì˜í•˜ê¸° : std::make_tuple" << endl;
 	{
 		tuple<int, char> tp = make_tuple(10, 't');
 		cout << get<0>(tp) << endl; // 10
 		cout << get<1>(tp) << endl; // t
 	}
 
-	cout << "tuple µ¥ÀÌÅÍ °³¼ö : std::tuple_size" << endl;
+	cout << "tuple ë°ì´í„° ê°œìˆ˜ : std::tuple_size" << endl;
 	{
 		tuple<int, char> tp = make_tuple(10, 't');
 		cout << tuple_size<decltype(tp)>::value << endl; // 2
 	}
 
-	cout << "ÂüÁ¶ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â tuple : std::tie" << endl;
+	cout << "ì°¸ì¡° ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” tuple : std::tie" << endl;
 	{
 		int intValue = 20;
-		tuple<int&> rtp = tie(intValue); // tie ´ë½Å tuple<int&>(intValue); °¡´É
+		tuple<int&> rtp = tie(intValue); // tie ëŒ€ì‹  tuple<int&>(intValue); ê°€ëŠ¥
 		get<0>(rtp) = 29;
 		cout << get<0>(rtp) << endl;
 		cout << intValue << endl;
 	}
 
-	cout << "tupleÀÇ µ¥ÀÌÅÍ¸¦ ÀÏ°ıÀûÀ¸·Î º¯¼ö¿¡ ÀúÀå : std::tie" << endl;
+	cout << "tupleì˜ ë°ì´í„°ë¥¼ ì¼ê´„ì ìœ¼ë¡œ ë³€ìˆ˜ì— ì €ì¥ : std::tie" << endl;
 	{
 		tuple<int, double> tp = make_tuple(1, 2.2);
 		int value1;
@@ -60,7 +61,7 @@ int main() {
 		cout << value2 << endl; // 2.2
 	}
 
-	cout << "tupleÀÇ µ¥ÀÌÅÍ¸¦ ºÎºĞÀûÀ¸·Î º¯¼ö¿¡ ÀúÀå : std::tie, std::ignore" << endl;
+	cout << "tupleì˜ ë°ì´í„°ë¥¼ ë¶€ë¶„ì ìœ¼ë¡œ ë³€ìˆ˜ì— ì €ì¥ : std::tie, std::ignore" << endl;
 	{
 		tuple<int, double, char> tp = make_tuple(1, 1.1, 'c');
 		int value1;
@@ -72,11 +73,11 @@ int main() {
 	}
 
 
-	cout << "tuple ÇÕÄ¡±â : std::tuple_cat" << endl;
+	cout << "tuple í•©ì¹˜ê¸° : std::tuple_cat" << endl;
 	{
 		tuple<int> tp1 = make_tuple(1);
 		tuple<double> tp2 = make_tuple(2.2);
-		tuple<int, double> tp_cat = tuple_cat(tp1, tp2); // cat : Concatenate (»ç½½°°ÀÌ ÀÕ´Ù; ¿¬¼â½ÃÅ°´Ù; <»ç°Ç µîÀ»> °áºÎ[¿¬°á]½ÃÅ°´Ù, ¿¬°ü½ÃÅ°´Ù)
+		tuple<int, double> tp_cat = tuple_cat(tp1, tp2); // cat : Concatenate ([kÉ‘nkÇ½tÉ™nÃ¨it] ì‚¬ìŠ¬ê°™ì´ ì‡ë‹¤; ì—°ì‡„ì‹œí‚¤ë‹¤; <ì‚¬ê±´ ë“±ì„> ê²°ë¶€[ì—°ê²°]ì‹œí‚¤ë‹¤, ì—°ê´€ì‹œí‚¤ë‹¤)
 
 		cout << tuple_size<decltype(tp1)>::value << endl; // 1
 		cout << tuple_size<decltype(tp2)>::value << endl; // 1
