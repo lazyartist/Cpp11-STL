@@ -3,14 +3,13 @@
 
 using namespace std;
 
+/* tuple?
+클래스, 구조체를 만들지 않고 데이터를 하나의 객체로 묶어줌.
+C++98에서 제공하던 std::pair의 확장 버전.
+컴파일 시간에 명시되거나 추론될 수 있는 데이터형 요소들을 가지는 이종 목록(heterogeneous list).
+tuple에 저장할 수 있는 데이터 개수는 Visual Studio 2012 이하 버전에서 _VARIADIC_MAX로 정의된 10개까지이다.
+*/
 int main() {
-	/* tuple?
-	클래스, 구조체를 만들지 않고 데이터를 하나의 객체로 묶어줌.
-	C++98에서 제공하던 std::pair의 확장 버전.
-	컴파일 시간에 명시되거나 추론될 수 있는 데이터형 요소들을 가지는 이종 목록(heterogeneous list).
-	tuple에 저장할 수 있는 데이터 개수는 Visual Studio 2012 이하 버전에서 _VARIADIC_MAX로 정의된 10개까지이다.
-	*/
-
 	cout << "tuple 정의" << endl;
 	{
 		// std::tuple : tuple 생성
@@ -71,7 +70,6 @@ int main() {
 		cout << value1 << endl; // 1
 		cout << value3 << endl; // c
 	}
-
 
 	cout << "tuple 합치기 : std::tuple_cat" << endl;
 	{

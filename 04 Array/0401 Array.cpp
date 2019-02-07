@@ -3,13 +3,12 @@
 
 using namespace std;
 
+/* array?
+C++11에서 새로 생긴 컨테이너.
+고정 길이 배열 자료구조를 사용.
+생성할 컨테이너의 크기를 지정해야함.
+*/
 int main() {
-	/* array?
-	C++11에서 새로 생긴 컨테이너.
-	고정 길이 배열 자료구조를 사용.
-	생성할 컨테이너의 크기를 지정해야함.
-	*/
-
 	cout << "array 생성 : std::array" << endl;
 	{
 		array<int, 2> arr = { 9 };
