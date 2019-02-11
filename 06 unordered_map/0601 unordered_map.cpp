@@ -5,9 +5,8 @@
 using namespace std;
 
 /*
-C++11 이전에 있던 hash_map과 거의 동일
+unordered_map은 C++11 이전에 있던 hash_map과 거의 동일
 hash_map은 표준 컨테이너는 아님
-
 */
 
 int main() {
