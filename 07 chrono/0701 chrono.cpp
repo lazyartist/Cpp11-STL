@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-chrono는 C++에 새로 추가된 시간 라이브러리
+chrono는 C++에 새로 추가된 시간 라이브러리로서
 기존 C런타임에서 제공하는 time 함수보다 다양한 기능을 제공하고 사용이 쉽고 정밀도가 높다.
 time 함수는 초 단위만 측정, chrono는 나노밀리초 단위까지 측정 가능.
 
@@ -81,7 +81,7 @@ int main() {
 		time_t t = chrono::system_clock::to_time_t(now);
 		cout << t << endl; // 1549874585, time_point에서 밀리초가 제거된다.
 
-		chrono::system_clock::time_point now2 = chrono::system_clock::from_time_t(t); // 15498750620000000, time_t로 갔다오니 밀리초부분 데이터가 없어졌다.
+		chrono::system_clock::time_point now2 = chrono::system_clock::from_time_t(t); // 15498750620000000, time_t로 변환 후 밀리초 데이터가 없어졌다.
 
 		/*
 		steady_clock은 time_point를 얻은 후 OS의 시간을 뒤로 돌려도 원래 시간의 흐름에서 시간을 반환한다.
@@ -92,7 +92,7 @@ int main() {
 		high_resolution_clock 플랫폼에서 제공하는 정밀도가 가장 높은 시간
 		system_clock이나 steady_clock의 다른 별칭으로 정의되기도 한다.
 		*/
-		chrono::high_resolution_clock::time_point hnow = chrono::high_resolution_clock::now(); // 355400732487804, steady_clock의 값과 거의 동일하다.
+		chrono::high_resolution_clock::time_point hnow = chrono::high_resolution_clock::now(); // 355400732487804, steady_clock의 값과 거의 동일하다. steady_clock의 별칭인듯하다.
 	}
 
 	return 0;
