@@ -274,19 +274,5 @@ int main() {
 		t2.join();
 	}
 
-	cout << "" << endl;
-	{
-		auto t = thread();
-	}
-	cout << "" << endl;
-	{
-		auto t = thread();
-	}
-
-	//while (true)
-	//{
-	//	//
-	//}
-
 	return 0;
 }
