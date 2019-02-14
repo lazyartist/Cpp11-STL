@@ -3,42 +3,90 @@
 #include <mutex> // thread 사용
 #include <chrono>
 #include <Windows.h>
+#include <string>
 
 using namespace std;
 
 /*
 thread 라이브러리를 사용하면 복잡하고 플랫폼마다 달리 사용했던 기존의 스레드 프로그래밍을
 단순하고 플랫폼 독립적으로 구현할 수 있다.
+
+join()을 호출하면 해당 쓰레드가 종료될 때까지 기다렸다가 다음 코드를 실행한다.
+따라서 스레드가 종료되지 않았고 join()을 호출하지 않은 상태에서 프로그램이 종료되면 에러가 발생한다.
+또한 스레드를 순서대로 실행시키려면 join이후에 다른 스레드를 실행하면 된다.
+
+만약 join(), detach()하지 않고 프로그램이 종료되면 thread 소멸자에서 terminate()가 호출되어 에러창이 뜬다.
+따라서 프로그램 종료 전 join()로 스레드 종료까지 대기하거나
+detach()로 스레드 객체와 커널 스레드를 분리하여 안전하게 종료되도록 해야한다.
 */
 
+void fp(string tname) {
+	cout << tname << ", f" << endl;
+}
+
 int main() {
-	cout << "Thread 생성" << endl;
+	// thread 생성 방법 : http://snowdeer.github.io/c++/2017/08/18/cpp11-thread-example/
+	cout << "Thread 생성: 함수 포인터" << endl;
 	{
-		thread t1 = thread([]() {
-			for (size_t i = 0; i < 5; i++)
-			{
-				cout << "t1: " << i << endl;
-			}
+		thread t = thread(fp, "t"); // t1, f
+		t.join();
+	}
+
+	cout << "Thread 생성: 람다 표현식" << endl;
+	{
+		thread t = thread([]() {
+			cout << "t, lamda" << endl; // t1, lamda
 		});
+		t.join();
+	}
 
-		/*
-		join()을 호출하면 해당 쓰레드가 종료된 후 join()을 호출한 이후로 넘어간다.
-		따라서 스레드가 종료되지 않았고 join()을 호출하지 않은 상태에서 프로그램이 종료되면 에러가 발생한다.
-		또한 스레드를 순서대로 실행시키려면 join이후에 다른 스레드를 실행하면 된다.
+	cout << "Thread 생성: 함수 객체" << endl;
+	{
+		// 함수 객체 정의
+		class FO {
+		public:
+			FO() {}
+			FO(int i) {} // thread t1(FO(0)); 를 사용하기 위해서 인자를 받는 생성자를 정의한다.
+			void operator()() {
+				cout << "FO()" << endl;
+			}
+		};
 
-		만약 join(), detach()하지 않고 프로그램이 종료되면 thread 소멸자에서 terminate()가 호출되어 에러창이 뜬다.
-		따라서 프로그램 종료 전 join()로 스레드 종료까지 대기하거나 
-		detach()로 스레드 객체와 커널 스레드를 분리하여 안전하게 종료되도록 해야한다.
-		*/
+		// 클래스 생성자에 파라미터가 없을 경우 컴파일 에러가 난다.
+		// 따라서 방법2 방식으로 생성하는 것이 좋다.
+		// 방법 1.
+		thread t1(FO(0)); // FO()
+
+		// 방법 2.
+		thread t2{FO()}; // FO()
+		// todo : 클래스 변수명 {} : 이 문법이 뭔지 모르겠다.
+
+		// 방법 3.
+		FO fo;
+		thread t3 = thread(fo); // FO()
+
 		t1.join();
-
-		thread t2 = thread([]() {
-			for (size_t i = 10; i < 15; i++)
-			{
-				cout << "t2: " << i << endl;
-			}
-		});
 		t2.join();
+		t3.join();
+	}
+
+	cout << "Thread 생성: 클래스 메소드" << endl;
+	{
+		// 클래스 정의
+		class C {
+		public:
+			void f() {
+				cout << "C.f()" << endl;
+			}
+		};
+
+		// todo 왜 thread 생성자 정의가 thread(_Fn&& _Fx, _Args&&... _Ax)
+		// &&를 사용했는지 모르겠다.
+		C c;
+		thread t = thread(&C::f, c); // C.f()
+		//thread t = thread(&C::f, &c); // &c로 전달해도 결과는 동일, 왜 c, &c 둘다 전달이 가능할까?
+
+		t.join();
 	}
 
 	cout << "스레드 식별자와 스레드 교환" << endl;
@@ -117,7 +165,7 @@ int main() {
 		for (size_t i = 0; i < tcnt; i++)
 		{
 			ts[i] = thread([&mut](int id) {
-				for (size_t j = 0; j < 10; j++)
+				for (size_t j = 0; j < 3; j++)
 				{
 					mut.lock();
 					sqrt(1.1L);
