@@ -1,2 +1,4 @@
-﻿  0101 Basic.cpp
-  0101 Basic.vcxproj -> D:\Examples\Cpp11 STL\Debug\0101 Basic.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 중간 디렉터리(Debug\)에 다른 프로젝트(0101 Basic.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  0101 Basic.cpp
+d:\examples\cpp11 stl\01 basic\0101 basic.cpp(73): warning C4227: 오래된 구문을 사용했습니다. 참조의 한정자가 무시됩니다.
+  0101 Basic.vcxproj -> D:\Examples\Cpp11 STL\Debug\01 Basic.exe
